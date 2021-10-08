@@ -11,11 +11,15 @@ const peer = ExpressPeerServer(server , {
 app.use('/peerjs', peer);
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
-app.get('/' , (req,res)=>{
-  res.send(uuidv4());
+app.use(express.static('../views'))
+app.get('/',(req,res)=>{
+  res.sendFile('index.html',{root:__dirname+'/views'});
+});
+app.get('/newmeet' , (req,res)=>{
+  res.redirect('/'+uuidv4())
 });
 app.get('/:room' , (req,res)=>{
-    res.render('index' , {RoomId:req.params.room});
+    res.render('roompg' , {RoomId:req.params.room});
 });
 io.on("connection" , (socket)=>{
   socket.on('newUser' , (id , room)=>{
