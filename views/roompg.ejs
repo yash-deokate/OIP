@@ -15,11 +15,13 @@
         grid-gap: 10px;
         height:80%;
         position: relative;
-        grid-template-columns: repeat(auto-fill, 300px);
-        grid-auto-rows: 300px;
+        grid-template-columns: repeat(auto-fill, 500px);
+        grid-auto-rows: 500px;
+      }
+      #footer{
+        width: 30%;
       }
       footer{
-        width: 100%;
         height: 50px;
         background-color: white;
         display: flex;
@@ -27,7 +29,9 @@
         flex:1;
         border-bottom: 1px solid grey;
         margin-top: 10px;
-        position: relative; left: 3px; top: 315px;
+        position: relative;
+        left: 3px;
+        top: 150px;
       }
       button{
         height: 30px;
@@ -65,7 +69,9 @@
     </div>
     <footer>
       <p>
+      <div id = "footer">
         RoomId:<div id="RId"></div>
+      </div>
         <button onclick="copyCode()">Copy code</button>
       </p>
     </footer>
