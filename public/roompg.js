@@ -35,7 +35,7 @@ navigator.mediaDevices.getUserMedia({
 peer.on('open' , (id)=>{
   myId = id;
   socket.emit("newUser" , id , roomID);
-  RId.innerHTML=roomID;
+  RId.innerHTML="Room ID: "+roomID;
 })
 peer.on('error' , (err)=>{
   alert(err.type);

@@ -8,7 +8,8 @@
         margin: 0;
       }
       #RId{
-        width: 30%;
+        width: fit-content;
+        display: inline-block;
       }
       #videoDiv{
         display: grid;
@@ -27,13 +28,13 @@
         display: flex;
         justify-content:center;
         flex:1;
-        border-bottom: 1px solid grey;
-        margin-top: 10px;
+        margin-top: 50px;
         position: relative;
         left: 3px;
         top: 150px;
       }
       button{
+
         height: 30px;
         width: 80px;
         margin-top: 10px;
@@ -45,6 +46,7 @@
         background-color:red;
         cursor: pointer;
         color: white;
+        display: inline-block;
       }
       video {
         width: 100%;
@@ -67,12 +69,13 @@
     <div id="videoDiv">
 
     </div>
+    
     <footer>
       <p>
-      <div id = "footer">
-        RoomId:<div id="RId"></div>
+      <div id = "footer" >
+        <div id="RId"></div>
+        <button onclick="copyCode()">Copy Id</button>
       </div>
-        <button onclick="copyCode()">Copy code</button>
       </p>
     </footer>
   </body>
