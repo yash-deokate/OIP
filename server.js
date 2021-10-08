@@ -11,7 +11,6 @@ const peer = ExpressPeerServer(server , {
 app.use('/peerjs', peer);
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
-app.use(express.static('../views/Images'))
 app.use(express.static('../views'))
 app.get('/',(req,res)=>{
   res.sendFile('index.html',{root:__dirname+'/views'});
