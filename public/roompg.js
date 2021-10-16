@@ -40,7 +40,7 @@ peer.on('open' , (id)=>{
   var button = document.createElement("button")
   button.innerHTML = "Mute: " + id;
   button.onclick = function(){
-      //alert("Check if " + id + " is muted");
+      alert("Check if " + id + " is muted");
       var vid = document.getElementById(id);
       if(vid.muted == false){
         vid.muted = true;
@@ -48,7 +48,7 @@ peer.on('open' , (id)=>{
       else{
         vid.muted = false;
       }
-      //alert("Muted?");
+      alert("vid.muted");
   };
   btnGroup.append(button);
 })
