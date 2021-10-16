@@ -42,7 +42,12 @@ peer.on('open' , (id)=>{
   button.onclick = function(){
       alert("Check if " + id + " is muted");
       var vid = document.getElementById(id);
-      //vid.muted = true;
+      if(vid.muted == null || vid.muted == false){
+        vid.muted = true;
+      }
+      else{
+        vid.muted = false;
+      }
       alert("vid.muted");
   };
   btnGroup.append(button);
