@@ -2,9 +2,10 @@ const socket = io('/');
 const peer = new Peer();
 let myVideoStream;
 let myId;
-var videoGrid = document.getElementById('videoDiv')
+var videoGrid = document.getElementById('videoDiv');
 var myvideo = document.createElement('video');
-var RId = document.getElementById('RId')
+var RId = document.getElementById('RId');
+var btnGroup = document.getElementById('mute-btn-group');
 myvideo.muted = true;
 const peerConnections = {}
 navigator.mediaDevices.getUserMedia({
@@ -36,6 +37,20 @@ peer.on('open' , (id)=>{
   myId = id;
   socket.emit("newUser" , id , roomID);
   RId.innerHTML="Room ID: "+roomID;
+  var button = document.createElement("button")
+  button.innerHTML = "Mute: " + id;
+  button.onclick = function(){
+      //alert("Check if " + id + " is muted");
+      var vid = document.getElementById(id);
+      if(vid.muted == false){
+        vid.muted = true;
+      }
+      else{
+        vid.muted = false;
+      }
+      //alert("Muted?");
+  };
+  btnGroup.append(button);
 })
 peer.on('error' , (err)=>{
   alert(err.type);
@@ -44,6 +59,7 @@ socket.on('userJoined' , id=>{
   console.log("new user joined"+id)
   const call  = peer.call(id , myVideoStream);
   const vid = document.createElement('video');
+  vid.setAttribute('id', id);
   call.on('error' , (err)=>{
     alert(err);
   })
