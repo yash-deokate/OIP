@@ -69,6 +69,17 @@
     <div id="videoDiv">
 
     </div>
+
+    <div style="width: 600px; height: 550px;" id="wt-container"></div>
+
+    <script src="https://www.whiteboard.team/dist/api.js"></script>
+    <script type="text/javascript">
+        const client = '<%= process.env.WHITEBOARD_CLIENT_ID %>';
+        var wt = new api.WhiteboardTeam('#wt-container', {
+            clientId: client,
+            boardCode: roomID
+        });
+    </script>
     
     <footer>
       <p>
