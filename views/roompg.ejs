@@ -55,20 +55,42 @@
         border:20px solid transparent;
         border-radius: 10%;
       }
+      html { height: 100%; }
+      body { margin: 0; height: 100%; position: relative; }
+      /* Height / width / positioning can be customized for your use case.
+         For demo purposes, we make firepad fill the entire browser. */
+      #firepad-container {
+        width: 100%;
+        height: 100%;
+      }
     </style>
     <script type="text/javascript">
       var roomID = "<%= RoomId %>"
       function copyCode(){
-        navigator.clipboard.writeText(roomID)
+        let rid_temp = window.location.pathname.substring(1) + window.location.hash;
+        navigator.clipboard.writeText(rid_temp);
       }
     </script>
     <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js" defer></script>
     <script src="socket.io/socket.io.js" defer></script>
     <script src="roompg.js" charset="utf-8" defer></script>
-  </head>
-  <body>
-    <div id="videoDiv">
 
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+  <!-- ACE and its JavaScript mode and theme files -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/mode-javascript.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/theme-textmate.js"></script>
+
+  <!-- Firepad -->
+  <link rel="stylesheet" href="https://firepad.io/releases/v1.5.9/firepad.css" />
+  <script src="https://firepad.io/releases/v1.5.9/firepad.min.js"></script>
+
+
+  </head>
+  <body onload="init()">
+
+    <div id="videoDiv">
     </div>
 
     <div style="width: 600px; height: 550px;" id="wt-container"></div>
@@ -82,14 +104,61 @@
         });
     </script>
     
+    <div id="firepad-container"></div>
+
+    <script>
+      function init() {
+        //// Initialize Firebase.
+        //// TODO: replace with your Firebase project configuration.
+        var config = {
+          apiKey: '<%= process.env.FIREPAD_API_KEY %>',
+          authDomain: "firepad-gh-tests.firebaseapp.com",
+          databaseURL: "https://firepad-gh-tests.firebaseio.com"
+        };
+        firebase.initializeApp(config);
+  
+        //// Get Firebase Database reference.
+        var firepadRef = getExampleRef();
+  
+        //// Create ACE
+        var editor = ace.edit("firepad-container");
+        editor.setTheme("ace/theme/textmate");
+        var session = editor.getSession();
+        session.setUseWrapMode(true);
+        session.setUseWorker(false);
+        session.setMode("ace/mode/javascript");
+  
+        //// Create Firepad.
+        var firepad = Firepad.fromACE(firepadRef, editor, {
+          defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'
+        });
+      }
+  
+      // Helper to get hash from end of URL or generate a random one.
+      function getExampleRef() {
+        var ref = firebase.database().ref();
+        var hash = window.location.hash.replace(/#/g, '');
+        if (hash) {
+          ref = ref.child(hash);
+        } else {
+          ref = ref.push(); // generate unique location.
+          window.location = window.location + '#' + ref.key; // add it as a hash to the URL.
+        }
+        if (typeof console !== 'undefined') {
+          console.log('Firebase data: ', ref.toString());
+        }
+        return ref;
+      }
+    </script>
+
+        
     <footer>
       <p>
       <div id = "footer" >
         <div id="RId"></div>
         <button onclick="copyCode()">Copy Id</button>
       </div>
-      <div id="mute-btn-group" role="group" aria-label="Basic example">
-      </div>
+      
       </p>
     </footer>
   </body>

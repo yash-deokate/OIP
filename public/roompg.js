@@ -43,9 +43,9 @@ peer.on('open' , (id)=>{
       alert("Check if " + id + " is muted");
       var vid = document.getElementById(id);
       var att = vid.getAttribute('muted');
-      /*att = att ? false : true;
-      vid.setAttribute('muted', vid.getAttribute('muted'), att);*/
-      alert("vid.muted");
+      att = att ? false : true;
+      //vid.setAttribute('muted', vid.getAttribute('muted'), att);*/
+      alert("___")
       alert(att);
   };
   btnGroup.append(button);
