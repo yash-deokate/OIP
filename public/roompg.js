@@ -36,7 +36,7 @@ navigator.mediaDevices.getUserMedia({
 peer.on('open' , (id)=>{
   myId = id;
   socket.emit("newUser" , id , roomID);
-  RId.innerHTML="Room ID: "+roomID;
+  RId.innerHTML="Room ID: "+window.location.pathname.substring(1) + window.location.hash;
   var button = document.createElement("button")
   button.innerHTML = "Mute: " + id;
   button.onclick = function(){
