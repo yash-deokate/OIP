@@ -15,20 +15,17 @@
       }
       #videoDiv{
         display: grid;
-        height: 638px;
+        height: 500px;
         grid-template-rows: repeat(2,auto);
         grid-auto-flow: column;
-        columns: row;
+        columns: auto;
         grid-column-gap: 2px;
         grid-row-gap: 2px;
       }
-      #footer{
-        width: 30%;
-      }
       footer{
         text-align: center;
-        position:absolute;
-        bottom:0px;
+        position:fixed;
+        bottom:0;
         background-color: #9400d3;
         color: #fff;
         width: 100%;
