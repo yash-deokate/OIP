@@ -1,5 +1,7 @@
 # OIP (Online Interview Platform)
 
+[Link to OIP](https://online-interview-platform.herokuapp.com/)
+
 ## Description
 
 Online Interview Platform lets you invite and conduct the coding interviews. It comes with the features like video conferencing, collaborative whiteboard and real-time code editor, thus enhancing the overall interview experience.
