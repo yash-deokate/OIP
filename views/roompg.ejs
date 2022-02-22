@@ -177,12 +177,12 @@
         <button id="start">Start Sharing</button>
         <button id="stop">Stop Sharing</button>
       </p>
-      <video id="video" width="800" height="680" autoplay></video>
+      
     </div>
 
 <script>
   function main() {
-  const video = document.getElementById("video");
+  const video = document.createElement("video");
   const start = document.getElementById("start");
   const stop = document.getElementById("stop");
 
@@ -205,12 +205,15 @@
       video.srcObject = await navigator.mediaDevices.getDisplayMedia(
         displayMediaOptions
       );
+      videoGrid.append(video);
       } catch (error) {
         console.log(error);
       }
     }
 
     function stopSharing() {
+      video.removeAttribute("video");
+      video.load();
       let tracks = video.srcObject.getTracks();
       tracks.forEach((track) => track.stop());
       video.srcObject = null;
