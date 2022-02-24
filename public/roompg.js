@@ -33,6 +33,35 @@ navigator.mediaDevices.getUserMedia({
     alert(err.message)
     console.log(err.message);
 })
+var displayMediaOptions = {
+  video: {
+      cursor: "always"
+  },
+  audio: false
+};
+navigator.mediaDevices.getDisplayMedia(displayMediaOptions)
+.then(function (stream) {
+  myVideoStream = stream;
+  addVideo(myvideo , stream);
+  peer.on('call' , call=>{
+    call.answer(stream);
+      const vid = document.createElement('video');
+    call.on('stream' , userStream=>{
+      addVideo(vid , userStream);
+    })
+    call.on('error' , (err)=>{
+      alert(err)
+    })
+    call.on("close", () => {
+        console.log(vid);
+        vid.remove();
+    })
+    peerConnections[call.peer] = call;
+  })
+}).catch(err=>{
+  alert(err.message)
+  console.log(err.message);
+});
 peer.on('open' , (id)=>{
   myId = id;
   socket.emit("newUser" , id , roomID);
