@@ -33,7 +33,7 @@ navigator.mediaDevices.getUserMedia({
     alert(err.message)
     console.log(err.message);
 })
-var displayMediaOptions = {
+/*var displayMediaOptions = {
   video: {
       cursor: "always"
   },
@@ -61,7 +61,7 @@ navigator.mediaDevices.getDisplayMedia(displayMediaOptions)
 }).catch(err=>{
   alert(err.message)
   console.log(err.message);
-});
+});*/
 peer.on('open' , (id)=>{
   myId = id;
   socket.emit("newUser" , id , roomID);
