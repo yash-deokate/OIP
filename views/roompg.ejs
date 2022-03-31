@@ -176,8 +176,8 @@
       <p>
         <button id="start">Start Sharing</button>
         <button id="stop">Stop Sharing</button>
+        <button id="record">Start Recording</button>
       </p>
-      
     </div>
 
 <script>
@@ -201,14 +201,6 @@
   };
 
   async function startSharing() {
-    /*try {
-      video.srcObject = await navigator.mediaDevices.getDisplayMedia(
-        displayMediaOptions
-      );
-      videoGrid.append(video);
-      } catch (error) {
-        console.log(error);
-      }*/
       var displayMediaOptions = {
       video: {
           cursor: "always"
@@ -234,6 +226,44 @@
         })
         peerConnections[call.peer] = call;
       })
+
+      //Test recording
+      var recordedChunks = [];
+      var options = { mimeType: "video/webm; codecs=vp9" };
+      mediaRecorder = new MediaRecorder(stream, options);
+
+      mediaRecorder.ondataavailable = handleDataAvailable;
+      mediaRecorder.start();
+
+      function handleDataAvailable(event) {
+        console.log("data-available");
+        if (event.data.size > 0) {
+          recordedChunks.push(event.data);
+          console.log(recordedChunks);
+          download();
+        } else {
+          // ...
+        }
+      }
+      function download() {
+        var blob = new Blob(recordedChunks, {
+          type: "video/webm"
+        });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        document.body.appendChild(a);
+        a.style = "display: none";
+        a.href = url;
+        a.download = "test.webm";
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }
+
+      // demo: to download after 9sec
+      setTimeout(event => {
+        console.log("stopping");
+        mediaRecorder.stop();
+      }, 9000);
     }).catch(err=>{
       alert(err.message)
       console.log(err.message);
@@ -241,11 +271,6 @@
     }
 
     function stopSharing() {
-      /*video.removeAttribute("video");
-      video.load();
-      let tracks = video.srcObject.getTracks();
-      tracks.forEach((track) => track.stop());
-      video.srcObject = null;*/
       navigator.mediaDevices.getUserMedia({
       video:true,
       audio:true
@@ -276,6 +301,79 @@
 
 main();
   </script>
+
+
+<script>
+  console.log("Entered script");
+  let startRec = document.getElementById("record");
+  let state = false;
+  let mediaRecorderShared = null;
+  async function startRecording() {
+      console.log("Started recording");
+      var displayMediaOptions = {
+      video: {
+          cursor: "always"
+      },
+      audio: true
+    };
+    navigator.mediaDevices.getDisplayMedia(displayMediaOptions)
+    .then(function (stream) {
+      //Test recording
+      var recordedChunks = [];
+      var options = { mimeType: "video/webm; codecs=vp9" };
+      mediaRecorder = new MediaRecorder(stream, options);
+
+      mediaRecorder.ondataavailable = handleDataAvailable;
+      mediaRecorder.start();
+
+      function handleDataAvailable(event) {
+        console.log("data-available");
+        if (event.data.size > 0) {
+          recordedChunks.push(event.data);
+          console.log(recordedChunks);
+          download();
+        } else {
+          // ...
+        }
+      }
+      function download() {
+        var blob = new Blob(recordedChunks, {
+          type: "video/webm"
+        });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        document.body.appendChild(a);
+        a.style = "display: none";
+        a.href = url;
+        a.download = "test.webm";
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }
+      mediaRecorderShared = mediaRecorder;
+    }).catch(err=>{
+      alert(err.message)
+      console.log(err.message);
+    });
+    }
+    async function stopRecording(){
+      mediaRecorderShared.stop();
+    }
+startRec.onclick = function(e){
+    //console.log("Onclick event set");
+    if(!state){
+      state = true;
+      startRecording();
+      startRec.textContent = "Stop Recording";
+    }
+    else{
+      state = false;
+      stopRecording();
+      startRec.textContent = "Start Recording";
+    }
+
+}
+//startRecording(); //Start of the recording 
+</script>
 
 <footer>
   
