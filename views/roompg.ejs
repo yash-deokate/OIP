@@ -60,6 +60,15 @@
             color: #fff;
             border: 3px solid #9400d3;
         }
+        .btn-outline-primary:hover{
+          background-color: #9400d3;
+          border: 1px solid #9400d3;
+        }
+        .btn-outline-primary{
+          border: 1px solid #9400d3;
+          color: #9400d3;
+        }
+
 
 
     </style>
@@ -174,9 +183,10 @@
     </script>
     <div>
       <p>
-        <button id="start">Start Sharing</button>
-        <button id="stop">Stop Sharing</button>
-        <button id="record">Start Recording</button>
+        <center>
+          <button class="btn btn-outline-primary" id="start">Start Sharing</button>
+          <button class="btn btn-outline-primary" id="stop">Stop Sharing</button>
+        </center>
       </p>
     </div>
 
@@ -227,43 +237,6 @@
         peerConnections[call.peer] = call;
       })
 
-      //Test recording
-      var recordedChunks = [];
-      var options = { mimeType: "video/webm; codecs=vp9" };
-      mediaRecorder = new MediaRecorder(stream, options);
-
-      mediaRecorder.ondataavailable = handleDataAvailable;
-      mediaRecorder.start();
-
-      function handleDataAvailable(event) {
-        console.log("data-available");
-        if (event.data.size > 0) {
-          recordedChunks.push(event.data);
-          console.log(recordedChunks);
-          download();
-        } else {
-          // ...
-        }
-      }
-      function download() {
-        var blob = new Blob(recordedChunks, {
-          type: "video/webm"
-        });
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement("a");
-        document.body.appendChild(a);
-        a.style = "display: none";
-        a.href = url;
-        a.download = "test.webm";
-        a.click();
-        window.URL.revokeObjectURL(url);
-      }
-
-      // demo: to download after 9sec
-      setTimeout(event => {
-        console.log("stopping");
-        mediaRecorder.stop();
-      }, 9000);
     }).catch(err=>{
       alert(err.message)
       console.log(err.message);
