@@ -24,7 +24,7 @@
       }
       footer{
         text-align: center;
-        position:fixed;
+        position:relative;
         bottom:0;
         background-color: #9400d3;
         color: #fff;
@@ -44,7 +44,7 @@
       }
       
       html { height: 100%; }
-      body { margin: 0; height: 100%; position: relative; }
+      body { margin: 0; height: 100vh; position: relative; }
       /* Height / width / positioning can be customized for your use case.
          For demo purposes, we make firepad fill the entire browser. */
       #firepad-container {
@@ -119,6 +119,25 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <p>
+          <center>
+            <button class="btn btn-outline-primary my-0 " id="start">Start Sharing</button>
+            <button class="btn btn-outline-primary my-0" id="stop">Stop Sharing</button>
+            <button class="btn btn-outline-primary my-0" id="record">Start Recording</button>
+          </center>
+        </p>
+      </div>
+      <!-- <div class="row">
+        <footer>
+          <div id="RId"></div>
+          <button onclick="copyCode()">
+            <span style= "color:white;">
+            <i class="fa fa-regular fa-copy"></i>
+            </span></button>
+      </footer>
+      </div> -->
+      
     </div>
 
     
@@ -181,15 +200,7 @@
         return ref;
       }
     </script>
-    <div>
-      <p>
-        <center>
-          <button class="btn btn-outline-primary" id="start">Start Sharing</button>
-          <button class="btn btn-outline-primary" id="stop">Stop Sharing</button>
-          <button class="btn btn-outline-primary" id="record">Start Recording</button>
-        </center>
-      </p>
-    </div>
+    
 
 <script>
   function main() {
@@ -349,15 +360,7 @@ startRec.onclick = function(e){
 //startRecording(); //Start of the recording 
 </script>
 
-<footer>
-  
-    <div id="RId"></div>
-    <button onclick="copyCode()">
-      <span style= "color:white;">
-      <i class="fa fa-regular fa-copy"></i>
-      </span></button>
- 
-</footer>
+
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
