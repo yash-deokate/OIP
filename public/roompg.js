@@ -7,6 +7,7 @@ var myvideo = document.createElement('video');
 var RId = document.getElementById('RId');
 var btnGroup = document.getElementById('mute-btn-group');
 myvideo.muted = true;
+myvideo.controls = true;
 const peerConnections = {}
 navigator.mediaDevices.getUserMedia({
   video:true,
@@ -17,6 +18,7 @@ navigator.mediaDevices.getUserMedia({
   peer.on('call' , call=>{
     call.answer(stream);
       const vid = document.createElement('video');
+      vid.controls = true;
     call.on('stream' , userStream=>{
       addVideo(vid , userStream);
     })
@@ -87,6 +89,7 @@ socket.on('userJoined' , id=>{
   const call  = peer.call(id , myVideoStream);
   const vid = document.createElement('video');
   vid.setAttribute('id', id);
+  vid.controls = true;
   call.on('error' , (err)=>{
     alert(err);
   })
