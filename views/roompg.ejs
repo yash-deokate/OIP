@@ -43,7 +43,21 @@
         border:10px solid transparent;
         border-radius: 5vh;
       }
-      
+
+      audio::-webkit-media-controls-timeline,
+      video::-webkit-media-controls-timeline {
+        display: none;
+      }
+      audio::-webkit-media-controls {
+        display: none;
+      }
+      video::-webkit-media-controls-play-button {
+        display: none;
+      }
+      video::-webkit-media-controls-current-time-display {
+        display: none;
+      }
+
       html { height: 100%; }
       body { margin: 0; height: 100vh; position: relative; }
       /* Height / width / positioning can be customized for your use case.
