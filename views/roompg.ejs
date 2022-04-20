@@ -88,7 +88,6 @@
         }
 
 
-
     </style>
     <script type="text/javascript">
       var roomID = "<%= RoomId %>"
@@ -140,10 +139,17 @@
       <div class="row">
         <p>
           <center>
-            <button class="btn btn-outline-primary my-0 " id="start">Start Sharing</button>
-            <button class="btn btn-outline-primary my-0" id="stop">Stop Sharing</button>
-            <button class="btn btn-outline-primary my-0" id="record">Start Recording</button>
+            <button class="btn btn-outline-primary my-0 " id="start">Start Screen Sharing</button>
+            <!-- <button class="btn btn-outline-primary my-0" id="stop">Stop Sharing</button> -->
+            <button class="btn btn-outline-primary my-0" id="record">Start Screen Recording</button>
           </center>
+          <!-- <footer class="mt-2">
+            <div id="RId"></div>
+            <button onclick="copyCode()">
+              <span style= "color:white;">
+              <i class="fa fa-regular fa-copy"></i>
+              </span></button>
+          </footer> -->
         </p>
       </div>
       <!-- <div class="row">
@@ -154,10 +160,16 @@
             <i class="fa fa-regular fa-copy"></i>
             </span></button>
       </footer>
-      </div> -->
-      
+      </div>
+       -->
     </div>
-
+    <footer>
+      <div id="RId"></div>
+      <button onclick="copyCode()">
+        <span style= "color:white;">
+        <i class="fa fa-regular fa-copy"></i>
+        </span></button>
+    </footer>
     
 
     <!-- <div style="width: 600px; height: 550px;" id="wt-container"></div>
@@ -224,6 +236,7 @@
   function main() {
   const video = document.createElement("video");
   video.controls = true;
+  let screenShareState = false;
   const start = document.getElementById("start");
   const stop = document.getElementById("stop");
 
@@ -235,11 +248,21 @@
   };
 
   start.onclick = function (e) {
-    startSharing();
+    // startSharing();
+    if(!screenShareState){
+      screenShareState = true;
+      startSharing();
+      start.textContent = "Stop Screen Sharing";
+    }
+    else{
+      screenShareState = false;
+      stopSharing();
+      start.textContent = "Start Screen Sharing";
+    }
   };
-  stop.onclick = function (e) {
-    stopSharing();
-  };
+  // stop.onclick = function (e) {
+  //   stopSharing();
+  // };
 
   async function startSharing() {
       var displayMediaOptions = {
@@ -369,12 +392,12 @@ startRec.onclick = function(e){
     if(!state){
       state = true;
       startRecording();
-      startRec.textContent = "Stop Recording";
+      startRec.textContent = "Stop Screen Recording";
     }
     else{
       state = false;
       stopRecording();
-      startRec.textContent = "Start Recording";
+      startRec.textContent = "Start Screen Recording";
     }
 
 }
